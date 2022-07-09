@@ -13,10 +13,12 @@ import { AuthModule } from './auth';
 import { connection } from './database/ormconfig';
 
 import { UserModule } from './api/user/user.module';
+import { ArticlesModule } from './api/articles/articles.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({ ...connection, autoLoadEntities: true }),
     AuthModule,
+    ArticlesModule,
     UserModule,
     ConfigModule.forRoot(),
     HttpModule,
