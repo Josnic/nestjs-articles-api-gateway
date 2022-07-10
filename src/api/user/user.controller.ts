@@ -18,8 +18,7 @@ export class UserController {
     @ApiOperation({ summary: 'Sign in' })
     @ApiBody({ description: 'User credentials', type: AuthLogin })
     @ApiResponse({ status: 201, description: 'User logged.', type: AuthToken })
-    @ApiResponse({ status: 401, description: 'User Unauthorized.', type: AuthToken })
-    @ApiResponse({ status: 403, description: 'Forbiden.', type: AuthToken })
+    @ApiResponse({ status: 401, description: 'User Unauthorized.' })
     @ApiResponse({ status: 500, description: 'Internal server error.'})
     public async login(@Request() req): Promise<AuthToken> {
         try{

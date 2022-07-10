@@ -5,6 +5,7 @@ import { UserEntity } from '../api/user/user.entity';
 import { AuthToken, AuthPayload } from './models';
 import { UserService } from '../api/user/user.service';
 import { comparePassword } from './utils';
+import { AUTH_SECRET_TOKEN } from '../constants';
 
 @Injectable()
 export class AuthService {
@@ -23,11 +24,13 @@ export class AuthService {
         return user
       }
     }
-    throw new UnauthorizedException("Credentials not valid")
+    throw new UnauthorizedException("Credentials not valid");
   }
 
   getAccessToken (payload: AuthPayload) {
-    return this.jwtService.sign(payload)
+    return this.jwtService.sign(payload, {
+      secret: AUTH_SECRET_TOKEN
+    })
   }
 
   async login(user: UserEntity): Promise<AuthToken> {

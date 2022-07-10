@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { HttpModule } from '@nestjs/axios';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { HttpModule } from 'nestjs-http-promise';
+
 import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
 import { AuthService } from './auth.service';
@@ -17,14 +18,12 @@ const passportModule = PassportModule.register({ defaultStrategy: 'jwt' });
     passportModule,
     HttpModule,
     TypeOrmModule.forFeature([UserEntity]),
-    JwtModule.registerAsync({
-      useFactory: () => ({
+    JwtModule.register({
         secret: AUTH_SECRET_TOKEN,
         signOptions: AUTH_JWT_OPTIONS
-      })
     }),
   ],
   providers: [AuthService, UserService, LocalStrategy, JwtStrategy],
-  exports: [AuthService, passportModule]
+  exports: [AuthService]
 })
 export class AuthModule {}
