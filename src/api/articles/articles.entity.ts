@@ -1,10 +1,11 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'articles' })
 export class ArticlesEntity {
     @PrimaryColumn()
-    @ApiProperty()
+    @Exclude()
     id: number;
 
     @ApiProperty()
@@ -18,4 +19,8 @@ export class ArticlesEntity {
     @ApiProperty()
     @Column({ type: 'text' })
     imageUrl: string;
+
+    constructor(partial: Partial<ArticlesEntity>) {
+        Object.assign(this, partial);
+    }
 }
