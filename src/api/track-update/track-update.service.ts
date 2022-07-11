@@ -24,7 +24,7 @@ export class TrackUpdateService {
     const track = await this.trackRepository.findOne({ where: { id: id } });
     track.apiCall = track.apiCall + 1;
     delete track.updated;
-    await this.trackRepository.update(id, track);
+    await this.trackRepository.save(track);
   }
 
 }
