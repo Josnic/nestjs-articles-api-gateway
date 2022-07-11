@@ -23,7 +23,8 @@ export class TrackUpdateService {
   async update(id: number): Promise<void> {
     const track = await this.trackRepository.findOne({ where: { id: id } });
     track.apiCall = track.apiCall + 1;
-    await this.trackRepository.save(track);
+    delete track.updated;
+    await this.trackRepository.update(id, track);
   }
 
 }

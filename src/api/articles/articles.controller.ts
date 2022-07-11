@@ -61,10 +61,15 @@ export class ArticlesController {
                 //fechas
 
                 const duration = moment.duration(currentdate.diff(lastUpdate));
-                if (duration.asMinutes() > ARTICLES_URL_MINUTES_TO_CALL){
+                if (duration.asDays() > 1 || 
+                    duration.asMonths() > 1 || 
+                    duration.asWeeks() > 1 || 
+                    duration.asYears() > 1 || 
+                    duration.asMinutes() > ARTICLES_URL_MINUTES_TO_CALL){
                     const remoteRequest: any = await this.articlesService.findAll();
                     if (remoteRequest.status == 200){
                         remoteArticles = remoteRequest.data;
+                        await this.trackUpdateService.update(track[0].id);
                         if (remoteArticles.length > 0){
                             await this.articlesService.deleteAll();
                         }
