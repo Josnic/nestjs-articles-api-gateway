@@ -35,14 +35,18 @@ password: admin
 These credentials will be loaded by migrations.
 ## Installation
 
+Engine: ```NodeJS v14.19.3``` and ```NPM 6.14.17```. 
+
+To install dependecies the command is:
+
 ```bash
 $ npm install
 ```
-NOTE: If you have a issue with that, pleaseremove ```package-lock.json``` and try again.
+NOTE: If you have a issue with that, please remove ```package-lock.json``` and try again.
 
 ## Migration
 
-The Api already content the migration. Before run it, it´s necesary to create the environment file ```.env``` taking ```env.example``` as template for database configuration. So, you must modify the ```ormconfig.ts``` localized in the path ```database/ormconfig.ts```:
+The Api already has the migration, just need to run it. Before run it, it´s necesary to create the environment file ```.env``` taking ```env.example``` as template for database configuration. So, you must modify the ```ormconfig.ts``` localized in the path ```database/ormconfig.ts```:
 
 ```typescript
 export const connection : DataSourceOptions = {
@@ -86,7 +90,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-When the Api is working, the documentation is [http://localhost:4000](http://localhost:4000)
+When the Api is working, the documentation is [http://localhost:4000/docs](http://localhost:4000/docs)
 
 ## Test
 
