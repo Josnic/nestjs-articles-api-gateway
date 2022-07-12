@@ -24,15 +24,56 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest](https://github.com/nestjs/nest) framework TypeScript Api Gateway. This Api works with Mysql using ```TYPEORM``` and implements ```JWT``` Authorization for protect one endpoint (articles list). Of course, the api has a login endpoint. 
 
+The credentials to use are:
+
+```bash
+username: admin
+password: admin
+```
+These credentials will be loaded by migrations.
 ## Installation
 
 ```bash
 $ npm install
 ```
+NOTE: If you have a issue with that, pleaseremove ```package-lock.json``` and try again.
+
+## Migration
+
+The Api already content the migration. Before run it, it´s necesary to create the environment file ```.env``` taking ```env.example``` as template for database configuration. So, you must modify the ```ormconfig.ts``` localized in the path ```database/ormconfig.ts```:
+
+```typescript
+export const connection : DataSourceOptions = {
+    type: 'mysql',
+    host: process.env.DATABASE_HOST || "localhost", //here
+    port: parseInt(process.env.DATABASE_PORT) || 3306,//here
+    username: process.env.DATABASE_USER || "root",//here
+    password: process.env.DATABASE_PASSWORD || "",//here
+    database: process.env.DATABASE_NAME || "test",//here
+    entities: [join(__dirname, '../api/**/*.entity{.ts,.js}')],
+
+    synchronize: false,
+
+    migrationsRun: false,
+    logging: true,
+    migrations: [
+      join(__dirname, 'migrations/*{.ts,.js}')
+    ]
+}
+```
+That´s necesary because ```TYPEORM``` doesn´t support environment variables (sorry).
+
+Now, to create the tables and insert the credentials in user table, only run:
+
+```bash
+$ npm run typeorm:run
+```
 
 ## Running the app
+
+The Api uses the PORT: 4000
 
 ```bash
 # development
@@ -44,6 +85,8 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+When the Api is working, the documentation is [http://localhost:4000](http://localhost:4000)
 
 ## Test
 
